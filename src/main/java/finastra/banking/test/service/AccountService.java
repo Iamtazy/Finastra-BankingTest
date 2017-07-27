@@ -14,14 +14,20 @@ public class AccountService {
 	@Autowired
 	private AccountDao accountDao;
 	
-	public List<Account> getAccounts() {
+	public List<Account> getAccountsService() {
 		List<Account> accounts = accountDao.getAccounts();
 		return accounts;
 	}
 	
-	public Account getAccountByAccountNumber(int accountNumber) {
+	public Account getAccountByAccountNumberService(int accountNumber) {
 		Account account = accountDao.getAccountByAccountNumber(accountNumber);
 		return account;
+	}
+	
+	public boolean withdrawFromAccountService(int accountNumber, double amount) {
+		if (accountDao.withdrawFromAccount(accountNumber, amount))
+			return true;
+		return false;
 	}
 
 }

@@ -74,5 +74,17 @@ public class AccountDao {
 		}
 		return tempAccount;
 	}
+	
+	public boolean withdrawFromAccount(int accountNumber, double amount) {
+		try {
+			connection();
+			PreparedStatement prepStat = connection.prepareStatement("update account set balance = (balance - '"+amount+"') where accountNumber = '"+accountNumber+"'");
+			prepStat.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
