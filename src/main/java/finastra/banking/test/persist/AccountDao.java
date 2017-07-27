@@ -86,5 +86,17 @@ public class AccountDao {
 		}
 		return false;
 	}
+	
+	public boolean addMoneyToAccount(int accountNumber, double amount) {
+		try {
+			connection();
+			PreparedStatement prepStat = connection.prepareStatement("update account set balance = (balance + '"+amount+"') where accountNumber = '"+accountNumber+"'");
+			prepStat.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }

@@ -28,5 +28,10 @@ public class AccountController {
 	public void withdrawFromAccountController(@RequestParam(value = "accNum", required=true) int accNum, @RequestParam(value = "amount", required=true) double amount){
 		accountService.withdrawFromAccountService(accNum, amount);
 	}
+	
+	@RequestMapping(value = "addMoney")
+	public void addMoneyToAccountController(@RequestParam(value = "accNum", required=true) int accNum, @RequestParam(value = "amount", required=true) double amount){
+		accountService.addMoneyToAccountService(accNum, amount);
+	}
 
 }

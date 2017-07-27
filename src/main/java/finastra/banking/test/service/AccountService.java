@@ -29,5 +29,11 @@ public class AccountService {
 			return true;
 		return false;
 	}
+	
+	public boolean addMoneyToAccountService(int accountNumber, double amount) {
+		if (accountDao.addMoneyToAccount(accountNumber, amount))
+			return true;
+		return false;
+	}
 
 }
