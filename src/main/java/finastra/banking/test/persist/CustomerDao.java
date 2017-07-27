@@ -39,23 +39,54 @@ public class CustomerDao {
 
 	public List<Customer> getCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
+		List<Integer> accounts = new ArrayList<Integer>();
 		try {
 			connection();
 			PreparedStatement prepStat = connection.prepareStatement("select * from customer");
 			rs = prepStat.executeQuery();
 			while (rs.next()) {
+				PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where customerID ='" + rs.getInt("customerID") + "'");
+				ResultSet rs2 = prepStat2.executeQuery();
 				Customer tempCustomer = new Customer();
 				tempCustomer.setName(rs.getString("name"));
 				tempCustomer.setCustomerID(rs.getInt("customerID"));
 				tempCustomer.setAddress(rs.getString("address"));
 				tempCustomer.setBirthday(rs.getDate("birthday"));
-				tempCustomer.setAccounts(null);
+				while (rs2.next()) {
+					accounts.add(rs2.getInt("accountNumber"));
+				}
+				tempCustomer.setAccounts(accounts);
 				customers.add(tempCustomer);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return customers;
+	}
+	
+	public Customer getCustomerById(int customerId) {
+		Customer tempCustomer = new Customer();
+		try {
+			connection();
+			PreparedStatement prepStat = connection.prepareStatement("select * from customer where customerID ='" + customerId + "'");
+			rs = prepStat.executeQuery();
+			PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where customerID ='" + customerId + "'");
+			ResultSet rs2 = prepStat2.executeQuery();
+			while (rs.next()) {
+				tempCustomer.setCustomerID(rs.getInt("customerID"));
+				tempCustomer.setAddress(rs.getString("address"));
+				tempCustomer.setName(rs.getString("name"));
+				tempCustomer.setBirthday(rs.getDate("birthday"));
+			}
+			while (rs2.next()) {
+				List<Integer> accounts = new ArrayList<Integer>();
+				accounts.add(rs2.getInt("accountNumber"));
+				tempCustomer.setAccounts(accounts);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tempCustomer;
 	}
 
 }

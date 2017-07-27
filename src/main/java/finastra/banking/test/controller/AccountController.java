@@ -18,6 +18,8 @@ public class AccountController {
 	
 	@RequestMapping(value = "listAccounts")
 	public List<Account> listAccounts(){
+		System.out.println(accountService.getAccountByAccountNumber(1234));
+		System.out.println(accountService.getAccounts().get(0).toString());
 		return accountService.getAccounts();
 	}
 

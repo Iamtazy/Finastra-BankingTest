@@ -19,6 +19,8 @@ public class CustomerController {
 	
 	@RequestMapping(value = "listCustomers")
 	public List<Customer> listAccounts(){
+		System.out.println(customerService.getCustomers().get(0).toString());
+		System.out.println(customerService.getCustomerById(1));
 		return customerService.getCustomers();
 	}
 

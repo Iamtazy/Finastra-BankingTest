@@ -9,13 +9,13 @@ public class Customer {
 	private String name;
 	private String address;
 	private Date birthday;
-	private List<Account> accounts;
+	private List<Integer> accounts;
 	
 	public Customer() {
 		
 	}
 
-	public Customer(int customerID, String name, String address, Date birthday, List<Account> accounts) {
+	public Customer(int customerID, String name, String address, Date birthday, List<Integer> accounts) {
 		super();
 		this.customerID = customerID;
 		this.name = name;
@@ -56,11 +56,11 @@ public class Customer {
 		this.birthday = birthday;
 	}
 
-	public List<Account> getAccounts() {
+	public List<Integer> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(List<Account> accounts) {
+	public void setAccounts(List<Integer> accounts) {
 		this.accounts = accounts;
 	}
 
@@ -115,6 +115,8 @@ public class Customer {
 		return "Customer [customerID=" + customerID + ", name=" + name + ", address=" + address + ", birthday="
 				+ birthday + ", accounts=" + accounts + "]";
 	}
+
+	
 	
 
 }
