@@ -45,14 +45,10 @@ public class AccountDao {
 			rs = prepStat.executeQuery();
 			while (rs.next()) {
 				Account tempAccount = new Account();
-				PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where accountNumber ='" + rs.getInt("accountNumber") + "'");
-				ResultSet rs2 = prepStat2.executeQuery();
 				tempAccount.setAccountNumber(rs.getInt("accountNumber"));
 				tempAccount.setBalance(rs.getDouble("balance"));
 				tempAccount.setCurrency(rs.getString("currency"));
-				if (rs2.next()) {
-					tempAccount.setCustomer(rs2.getInt("customerID"));
-				}
+				tempAccount.setCustomer(rs.getInt("customer"));
 				accounts.add(tempAccount);
 			}
 		} catch (SQLException e) {
@@ -67,15 +63,11 @@ public class AccountDao {
 			connection();
 			PreparedStatement prepStat = connection.prepareStatement("select * from account where accountNumber ='" + accountNumber + "'");
 			rs = prepStat.executeQuery();
-			PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where accountNumber ='" + accountNumber + "'");
-			ResultSet rs2 = prepStat2.executeQuery();
 			while (rs.next()) {
 				tempAccount.setAccountNumber(rs.getInt("accountNumber"));
 				tempAccount.setBalance(rs.getDouble("balance"));
 				tempAccount.setCurrency(rs.getString("currency"));
-			}
-			if (rs2.next()) {
-				tempAccount.setCustomer(rs2.getInt("customerID"));
+				tempAccount.setCustomer(rs.getInt("customer"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

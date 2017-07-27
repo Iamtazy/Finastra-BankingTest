@@ -45,7 +45,7 @@ public class CustomerDao {
 			PreparedStatement prepStat = connection.prepareStatement("select * from customer");
 			rs = prepStat.executeQuery();
 			while (rs.next()) {
-				PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where customerID ='" + rs.getInt("customerID") + "'");
+				PreparedStatement prepStat2 = connection.prepareStatement("select accountNumber from account where customer ='" + rs.getInt("customerID") + "'");
 				ResultSet rs2 = prepStat2.executeQuery();
 				Customer tempCustomer = new Customer();
 				tempCustomer.setName(rs.getString("name"));
@@ -70,7 +70,7 @@ public class CustomerDao {
 			connection();
 			PreparedStatement prepStat = connection.prepareStatement("select * from customer where customerID ='" + customerId + "'");
 			rs = prepStat.executeQuery();
-			PreparedStatement prepStat2 = connection.prepareStatement("select * from customer_x_account where customerID ='" + customerId + "'");
+			PreparedStatement prepStat2 = connection.prepareStatement("select accountNumber from account where customer ='" + customerId + "'");
 			ResultSet rs2 = prepStat2.executeQuery();
 			while (rs.next()) {
 				tempCustomer.setCustomerID(rs.getInt("customerID"));
